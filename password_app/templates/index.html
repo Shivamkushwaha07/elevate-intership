@@ -1,0 +1,57 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Password Strength Analyzer</title>
+</head>
+<body style="font-family:Arial, sans-serif; background-color:#f7f9fb; color:#222; margin:2rem auto; max-width:900px;">
+  <h1 style="text-align:center; color:#1565c0;">Password Strength Analyzer & Wordlist Generator</h1>
+
+  <div style="border:1px solid #ddd; border-radius:10px; padding:1rem; background-color:#fff; margin-bottom:1.5rem;">
+    <h2 style="color:#1976d2;">Check Password Strength</h2>
+    <form method="post">
+      <input type="text" name="password" placeholder="Enter password" style="width:100%; padding:10px; margin:6px 0;">
+      <button name="check" style="background:#1976d2; color:#fff; padding:8px 14px; border:none; border-radius:5px; cursor:pointer;">Check Strength</button>
+    </form>
+    {% if result %}
+      <p><b>Password:</b> {{result.password}}</p>
+      <p><b>Strength Score:</b> {{result.score}} / 100</p>
+      {% if result.score < 30 %}
+        <p style="color:red;">Very Weak — use longer and complex passwords.</p>
+      {% elif result.score < 60 %}
+        <p style="color:orange;">Weak — add variety and symbols.</p>
+      {% elif result.score < 80 %}
+        <p style="color:green;">Good — can be stronger with more length.</p>
+      {% else %}
+        <p style="color:blue;">Strong password — well done!</p>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <div style="border:1px solid #ddd; border-radius:10px; padding:1rem; background-color:#fff;">
+    <h2 style="color:#1976d2;">Generate Sample Passwords</h2>
+    <form method="post">
+      <label>Names:</label>
+      <input name="names" style="width:100%; padding:8px; margin:4px 0;" placeholder="e.g. aman shiva">
+      <label>Years:</label>
+      <input name="years" style="width:100%; padding:8px; margin:4px 0;" placeholder="e.g. 2000 2024">
+      <label>Pets/Words:</label>
+      <input name="pets" style="width:100%; padding:8px; margin:4px 0;" placeholder="e.g. dog cat">
+      <label>Extras:</label>
+      <input name="extras" style="width:100%; padding:8px; margin:4px 0;" placeholder="e.g. @ # !">
+      <button name="generate" style="background:#1976d2; color:#fff; padding:8px 14px; border:none; border-radius:5px; cursor:pointer;">Generate Passwords</button>
+    </form>
+    {% if samples %}
+      <h3 style="margin-top:10px;">Sample Generated Passwords:</h3>
+      <ol>
+        {% for s in samples %}
+          <li style="margin:4px 0;">{{s}}</li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+  </div>
+
+  <p style="margin-top:1rem; font-size:0.9em; color:#555;">Note: For educational purposes only.</p>
+</body>
+</html>
